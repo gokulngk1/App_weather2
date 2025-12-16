@@ -1,0 +1,32 @@
+.weather-container {
+  margin-top: 120px;
+  display: flex;
+  justify-content: center;
+}
+
+.weather-box {
+  background: transparent;
+  border: 1px solid #555;
+  border-radius: 12px;
+  padding: 25px 30px;
+  width: 320px;
+  text-align: center;
+  color: white;
+}
+
+.city {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.temperature {
+  font-size: 60px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.description {
+  font-size: 18px;
+  opacity: 0.8;
+  text-transform: capitalize;
+}

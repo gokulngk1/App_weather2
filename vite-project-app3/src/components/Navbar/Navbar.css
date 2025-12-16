@@ -1,0 +1,104 @@
+/* ---------------------------------------------------
+   MAIN NAVBAR CONTAINER
+--------------------------------------------------- */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 10px 20px;
+  box-sizing: border-box;
+
+  background-color: #282254;
+  color: #ffffff;
+  font-family: sans-serif;
+
+  z-index: 1000;
+}
+
+/* Flex groups */
+.navbar-group {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Search box */
+.search-box {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: 1px solid #555;
+  border-radius: 8px;
+  padding: 5px;
+}
+
+.search-input {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  padding: 8px 10px;
+  font-size: 16px;
+  outline: none;
+  width: 200px;
+}
+
+.search-input::placeholder {
+  color: #b0b0b0;
+}
+
+.search-icon-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+/* Current weather box */
+.current-weather-box {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: 1px solid #555;
+  border-radius: 8px;
+  padding: 8px 15px;
+  gap: 10px;
+}
+
+.location-name {
+  padding-right: 5px;
+}
+
+.more-options-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.ellipsis {
+  transform: scaleY(0.5);
+}
+
+/* Toggle buttons */
+.toggle-btn {
+  border: 1px solid #555;
+  background: transparent;
+  padding: 10px 15px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}
+
+.toggle-btn:hover {
+  background-color: #747a81;
+}
