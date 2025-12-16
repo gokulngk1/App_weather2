@@ -28,10 +28,8 @@ const Navbar = ({ onSearch }) => {
     <MajorCity />
       
     
-      
-
-      {/* Toggles */}
-      <div className="navbar-group toggles-group">
+{/* Toggles */}
+      <div className="navbar-group toggles-group ">
         <button 
           className={`toggle-btn theme-toggle`}
         >

@@ -1,25 +1,3 @@
-// import React from 'react'
-
-// function Majorcity() {
-
-//   return (
-//     <div>
-      
-//     </div>
-//   )
-// }
-
-// export default Majorcity
-
-
-// useState -  to store empty array 
-// useEffect - to call the api when the component loads
-// fetch - to call the api
-// map - to iterate through the array and display the data
-
-
-// -------------------------------------------------------------
-
 
 import { useEffect, useState } from "react";
 import { fetchWeatherByCity } from '../../../api/weatherApi'; // adjust path if needed
@@ -52,12 +30,11 @@ const MajorCity = () => {
   if (loading) {
     return <p className="text-center">Loading...</p>;
   }
-
+  
   return (
-  <div className="d-flex ">
-    <div className="major-cities-container d-flex row gap-3">
+      <div className="major-cities-container gap-4">
       {weatherList.map((weather, index) => (
-        <div className="current-weather-box" key={cities[index]}>
+        <div className="current-weather-box gap-2" key={cities[index]}>
           <span className="location-name">
             {cities[index]}{" "}
             <span role="img" aria-label="weather">
@@ -72,7 +49,6 @@ const MajorCity = () => {
         </div>
       ))}
     </div>
-  </div>
 );
 
 };
