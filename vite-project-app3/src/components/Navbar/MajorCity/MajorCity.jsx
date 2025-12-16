@@ -54,8 +54,8 @@ const MajorCity = () => {
   }
 
   return (
-  <div className="d-flex justify-content-end">
-    <div className="major-cities-container d-flex flex-column gap-3">
+  <div className="d-flex ">
+    <div className="major-cities-container d-flex row gap-3">
       {weatherList.map((weather, index) => (
         <div className="current-weather-box" key={cities[index]}>
           <span className="location-name">
