@@ -1,15 +1,19 @@
-import React from 'react'
+import React from "react";
 import "./Theme.css";
 
-const Theme = () => {
+const Theme = ({ theme, setTheme }) => {
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
+
   return (
-    <div className="navbar-group toggles-group">
-        <button 
-          className={`toggle-btn theme-toggle`}
-        >
-          Theme
-        </button>
-  )
-}
+    <button
+      className="toggle-btn theme-toggle"
+      onClick={toggleTheme}
+    >
+      Theme
+    </button>
+  );
+};
 
 export default Theme;

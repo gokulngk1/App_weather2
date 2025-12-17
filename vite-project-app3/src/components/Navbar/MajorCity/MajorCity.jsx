@@ -32,7 +32,7 @@ const MajorCity = () => {
   }
   
   return (
-      <div className="major-cities-container gap-4">
+      <div className=" gap-2">
       {weatherList.map((weather, index) => (
         <div className="current-weather-box gap-2" key={cities[index]}>
           <span className="location-name">
@@ -42,10 +42,6 @@ const MajorCity = () => {
             </span>{" "}
             {Math.round(weather?.main?.temp)}°
           </span>
-
-          <button className="more-options-btn">
-            <span className="ellipsis">...</span>
-          </button>
         </div>
       ))}
     </div>

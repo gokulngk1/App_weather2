@@ -1,33 +1,27 @@
 .major-cities-container {
-  margin-top: 10px;
+  margin-top: 20px;
   /* justify-content: space-between; */
 }
 
 .current-weather-box {
-  width: 250px;
+  width: 325px;
   /* background: rgba(255, 255, 255, 0.06); */
   background-color: transparent;
   border-radius: 10px;
   display: inline-flex; 
-  justify-items: left ;
+  /* justify-items: left ; */
   align-items: center;
   color: #fff;
   cursor: pointer;
   border: 1px solid #555;
   padding: 8px 15px;
-  gap: 8px;
+  gap: px;
 
 }
 
 .location-name {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
 }
 
-.more-options-btn {
-  background: transparent;
-  border: x;
-  color: #fff;
-  font-size: 18px;
-  cursor: pointer;
-}
+
