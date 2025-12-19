@@ -97,21 +97,12 @@ const Navbar = ({ onSearch }) => {
   const [unit, setUnit] = useState("F");
 
   return (
-    // <nav className="navbar">
-    //   <SearchCity onSearch={onSearch} />
-    //   <MajorCity />
-      
-    //   <div className="navbar-group toggles-group navbar-toggles justify-space-between">
-    //     <Theme theme={theme} setTheme={setTheme} />
-    //     <UnitToggle unit={unit} setUnit={setUnit} />
-    //   </div>
-    // </nav>
     <nav className="navbar">
 
   {/* LEFT SIDE */}
   <div className="navbar-left">
-    <SearchCity onSearch={onSearch} />
-    <MajorCity />
+    <SearchCity onResult={onSearch} />
+    <MajorCity onSearch={onSearch} />
   </div>
 
   {/* RIGHT SIDE */}

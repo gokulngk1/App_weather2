@@ -1,32 +1,164 @@
-.weather-container {
-  margin-top: 120px;
-  display: flex;
-  justify-content: center;
-}
-
-.weather-box {
-  background: transparent;
-  border: 1px solid #555;
-  border-radius: 12px;
-  padding: 25px 30px;
-  width: 320px;
+/* ===============================
+   STATUS TEXT
+================================ */
+.status {
+  margin-top: 10px;
   text-align: center;
-  color: white;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.85);
 }
 
-.city {
-  font-size: 22px;
+/* ===============================
+   WEATHER CARD
+================================ */
+.weather-card {
+  margin: 4px 30px ;
+  width: 320px;
+  padding: 15px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+  color: #fff;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.weather-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* ===============================
+   CITY NAME
+================================ */
+.weather-card h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
   margin-bottom: 10px;
 }
 
-.temperature {
-  font-size: 60px;
-  font-weight: bold;
-  margin: 10px 0;
+/* ===============================
+   WEATHER ICON
+================================ */
+.weather-card img {
+  width: 90px;
+  height: 90px;
 }
 
-.description {
-  font-size: 18px;
-  opacity: 0.8;
+/* ===============================
+   TEMPERATURE
+================================ */
+.weather-card h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin: 8px 0;
+}
+
+/* ===============================
+   UNIT TOGGLE BUTTON
+================================ */
+.unit-toggle {
+  margin: 8px 0 14px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: transparent;
+  color: #fff;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.unit-toggle:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: scale(1.05);
+}
+
+/* ===============================
+   DESCRIPTION
+================================ */
+.desc {
   text-transform: capitalize;
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin-bottom: 16px;
+}
+
+/* ===============================
+   WEATHER INFO ROW
+================================ */
+.info {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.85rem;
+}
+
+.info span {
+  opacity: 0.85;
+}
+
+/* ===============================
+   SHIMMER LOADING
+================================ */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.shimmer-line {
+  height: 14px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 6px;
+  margin-bottom: 14px;
+}
+
+.shimmer-line.title {
+  width: 70%;
+}
+
+.shimmer-line.temp {
+  width: 40%;
+  height: 28px;
+}
+
+.shimmer-line.desc {
+  width: 60%;
+}
+
+.shimmer-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  margin: 16px auto;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 480px) {
+  .weather-card {
+    width: 90%;
+  }
 }

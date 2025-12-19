@@ -1,21 +1,44 @@
-import React from "react";
+import { useState } from "react";
 import "./WeatherDisplay.css";
 
-const WeatherDisplay = ({ weather }) => {
-  if (!weather) return null;
+const WeatherDisplay = ({ weather, loading }) => {
+  const [unit, setUnit] = useState("C");
+
+  if (loading) return /* shimmer code here */;
+  if (!weather) return <p className="status">Search a city to view weather</p>;
+
+  const tempC = weather.main.temp;
+  const tempF = (tempC * 9) / 5 + 32;
 
   return (
-    <div className="weather-container">
-      <div className="weather-box">
-        <h2 className="city">
-          {weather.name}, {weather.sys.country}
-        </h2>
+    <div className="weather-card">
+      <h2>
+        {weather.name}, {weather.sys.country}
+      </h2>
 
-        <h1 className="temperature">{weather.main.temp}°C</h1>
+      <img
+        src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+        alt="weather"
+      />
 
-        <p className="description">
-          {weather.weather[0].description}
-        </p>
+      <h1>
+        {unit === "C"
+          ? `${Math.round(tempC)}°C`
+          : `${Math.round(tempF)}°F`}
+      </h1>
+
+      <button
+        className="unit-toggle"
+        onClick={() => setUnit(unit === "C" ? "F" : "C")}
+      >
+        Switch to °{unit === "C" ? "F" : "C"}
+      </button>
+
+      <p className="desc">{weather.weather[0].description}</p>
+
+      <div className="info">
+        <span>Humidity: {weather.main.humidity}%</span>
+        <span>Wind: {weather.wind.speed} km/h</span>
       </div>
     </div>
   );
