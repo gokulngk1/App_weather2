@@ -6,7 +6,7 @@
 
 /* Search box */
 .msn-search-box {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(14px);

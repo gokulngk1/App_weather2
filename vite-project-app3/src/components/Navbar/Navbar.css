@@ -4,16 +4,16 @@
 .navbar {
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
+  left: -1;
+  width: 99%;
   height: 70px;
 
-  display: flex;
+  display:inline-flex;
   /* justify-content: space-between; */
   align-items: center;
 
-  padding: 10px 20px;
-  box-sizing: border-box;
+  padding: 12px 20px;
+  /* box-sizing: border-box; */
 
   background-color: #282254;
   color: #ffffff;
@@ -78,8 +78,24 @@
   border-radius: 8px;
   color: white;
   cursor: pointer;
+  justify-content: end;
+  /* display: inline; */
 }
 
 .toggle-btn:hover {
   background-color: #747a81;
 }
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 2;                /* 🔥 takes remaining space */
+}
+
+/* RIGHT buttons */
+.toggles-group {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;         /* 🔥 prevents shrinking */
+}
+

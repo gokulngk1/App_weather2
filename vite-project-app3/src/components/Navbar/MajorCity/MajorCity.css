@@ -1,27 +1,41 @@
 .major-cities-container {
-  margin-top: 20px;
-  /* justify-content: space-between; */
+  display: flex;
+  gap: 15px;
+  flex-wrap: nowrap;   /* 🔥 KEY FIX */
+  overflow-x: auto;    /* optional: scroll if many cities */
 }
 
+
 .current-weather-box {
-  width: 325px;
+  /* width: 325px; */
   /* background: rgba(255, 255, 255, 0.06); */
-  background-color: transparent;
-  border-radius: 10px;
+  /* background-color: transparent;
+  border-radius: 10px; */
   display: inline-flex; 
-  /* justify-items: left ; */
-  align-items: center;
+  /* justify-items: center;  */
+  /* align-items: center;
   color: #fff;
   cursor: pointer;
   border: 1px solid #555;
   padding: 8px 15px;
-  gap: px;
+  gap: px; */
+  width: 100px;
+  border: 2px solid #555;
+  background: transparent;
+  padding: 12px 15px;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  
 
 }
+
 
 .location-name {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
 }
+
+
 
 
