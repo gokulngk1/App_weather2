@@ -86,7 +86,7 @@ const MajorCity = () => {
   }
 
   return (
-    <div className="major-cities-container">
+    <div className="major-cities-container mt-2">
       {weatherList.map((weather, index) => (
         <div className="current-weather-box" key={cities[index]}>
           <span className="location-name">

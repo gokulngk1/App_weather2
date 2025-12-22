@@ -39,6 +39,7 @@ import WeatherDisplay from "./components/WeatherDisplay/WeatherDisplay";
 
 function App() {
   const [weather, setWeather] = useState(null);
+  // const [unit, setUnit] = useState("C");
 
   // 🔥 receives weather object directly
   const handleWeatherResult = (data) => {
@@ -48,7 +49,7 @@ function App() {
   return (
     <>
       <Navbar onSearch={handleWeatherResult} />
-      <WeatherDisplay weather={weather} />
+      <WeatherDisplay weather={weather}  />
     </>
   );
 }
