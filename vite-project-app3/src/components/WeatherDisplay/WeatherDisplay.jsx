@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./WeatherDisplay.css";
+import UnitToggle from "../Navbar/UnitToggle/UnitToggle"; 
+
 
 const WeatherDisplay = ({ weather, loading }) => {
   const [unit, setUnit] = useState("C");
