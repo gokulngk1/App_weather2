@@ -37,7 +37,7 @@ function App() {
   };
 
   return (
-    <div className="app-root">
+    <div>
       <Navbar onSearch={handleWeatherResult} />
 
       {/* ⬇️ Content below navbar */}

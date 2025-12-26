@@ -14,15 +14,16 @@ const WeatherDisplay = ({ weather, loading }) => {
 
   return (
     <div className="weather-card">
-     
-      <h2>
-        {weather.name}, {weather.sys.country}  
-      </h2>
 
-      <img
+     
+         <h2>
+        {weather.name}, {weather.sys.country}  
+        </h2>
+       <img
         src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
         alt="weather"
       />
+    
 
       <h1>
         {unit === "C"
@@ -39,7 +40,7 @@ const WeatherDisplay = ({ weather, loading }) => {
 
       <p className="desc">{weather.weather[0].description}</p>
 
-      <div className="info">
+      <div className="col d-flex info">
         <span>Humidity: {weather.main.humidity}%</span>
         <span>Wind: {weather.wind.speed} km/h</span>
       </div>

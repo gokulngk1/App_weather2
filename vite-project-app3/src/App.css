@@ -7,6 +7,8 @@
 /* Area below navbar */
 .content-area {
   display: flex;
-  justify-content: flex-end; /* 👉 move card to RIGHT */
-  padding: 30px 40px;
+  justify-content:center; /* 👉 move card to RIGHT */
+  /* padding: 30px 40px; */
+  height: 100vh;
+align-items: center;
 }
