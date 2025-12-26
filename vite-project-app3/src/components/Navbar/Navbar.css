@@ -78,7 +78,7 @@
   border-radius: 8px;
   color: white;
   cursor: pointer;
-  justify-content: end;
+  /* justify-content: end; */
   /* display: inline; */
 }
 

@@ -92,6 +92,7 @@ import MajorCity from "./MajorCity/MajorCity";
 import Theme from "./Theme/Theme";
 import UnitToggle from "./UnitToggle/UnitToggle";
 
+
 const Navbar = ({ onSearch }) => {
   const [theme, setTheme] = useState("dark");
   const [unit, setUnit] = useState("F");

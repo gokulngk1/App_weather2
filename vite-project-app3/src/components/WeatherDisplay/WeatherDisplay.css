@@ -1,164 +1,84 @@
-/* ===============================
-   STATUS TEXT
-================================ */
-.status {
-  margin-top: 10px;
-  text-align: center;
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.85);
-}
-
-/* ===============================
-   WEATHER CARD
-================================ */
+/* Container */
 .weather-card {
-  margin: 8px 30px  ;
-  width: 320px;
-  padding: 15px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(14px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
-  color: #fff;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 60%;  
+  /* display: inline-grid; */
+  /* text-align: center; */
+  margin: 100px;
+  padding: 18px 32px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #4b4773, #5b5787);
+  color: #ffffff;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  
 }
 
-.weather-card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
-}
-
-/* ===============================
-   CITY NAME
-================================ */
+/* City name */
 .weather-card h2 {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  opacity: 0.95;
 }
 
-/* ===============================
-   WEATHER ICON
-================================ */
+/* Weather icon */
 .weather-card img {
   width: 90px;
   height: 90px;
 }
 
-/* ===============================
-   TEMPERATURE
-================================ */
+/* Temperature */
 .weather-card h1 {
-  font-size: 2.8rem;
-  font-weight: 700;
-  margin: 8px 0;
+  font-size: 72px;
+  font-weight: 600;
+  margin: 10px 0;
+  letter-spacing: -2px;
 }
 
-/* ===============================
-   UNIT TOGGLE BUTTON
-================================ */
+/* Toggle button */
 .unit-toggle {
-  margin: 8px 0 14px;
-  padding: 6px 16px;
+  margin: 10px 0 18px;
+  padding: 6px 14px;
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.4);
-  background: transparent;
-  color: #fff;
-  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
+  font-size: 14px;
+  transition: all 0.2s ease;
 }
 
 .unit-toggle:hover {
-  background: rgba(255, 255, 255, 0.18);
-  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.22);
 }
 
-/* ===============================
-   DESCRIPTION
-================================ */
+/* Description */
 .desc {
-  text-transform: capitalize;
-  font-size: 0.95rem;
+  font-size: 16px;
   opacity: 0.9;
-  margin-bottom: 16px;
+  margin-bottom: 22px;
 }
 
-/* ===============================
-   WEATHER INFO ROW
-================================ */
+/* Info row */
 .info {
   display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  font-size: 0.85rem;
+  gap: 28px;
+  flex-wrap: wrap;
+  font-size: 14px;
+  opacity: 0.9;
 }
 
+/* Each stat */
 .info span {
-  opacity: 0.85;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* ===============================
-   SHIMMER LOADING
-================================ */
-.shimmer {
-  position: relative;
-  overflow: hidden;
-}
-
-.shimmer::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.3),
-    transparent
-  );
-  animation: shimmer 1.4s infinite;
-}
-
-@keyframes shimmer {
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-.shimmer-line {
-  height: 14px;
-  background: rgba(255, 255, 255, 0.25);
-  border-radius: 6px;
-  margin-bottom: 14px;
-}
-
-.shimmer-line.title {
-  width: 70%;
-}
-
-.shimmer-line.temp {
-  width: 40%;
-  height: 28px;
-}
-
-.shimmer-line.desc {
-  width: 60%;
-}
-
-.shimmer-circle {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.25);
-  margin: 16px auto;
-}
-
-/* ===============================
-   RESPONSIVE
-================================ */
-@media (max-width: 480px) {
-  .weather-card {
-    width: 90%;
-  }
+/* Status text */
+.status {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 18px;
+  color: #666;
 }
