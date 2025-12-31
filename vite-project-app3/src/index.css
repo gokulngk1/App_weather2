@@ -67,15 +67,30 @@ button:focus-visible {
   }
 }
 
-.weathecard{
+/* .weathecard{
   background: rgba(255, 255, 255, 0.1);
   border-radius: 16px;
-  gap: 12px;
+  gap: 150px;
   display: flex;
   padding: 12px;
   max-width: 500px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   flex-direction: row;
   justify-content: left;
-  /* margin: auto; */
+  margin: auto;
+} */
+
+.weathecard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  max-width: 320px;        /* ⬅️ reduces empty space */
+  margin-left: auto;      /* ⬅️ pushes it to the right */
+
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
 }
+

@@ -1,27 +1,25 @@
-import { useState } from "react";
 import "./WeatherDisplay.css";
-import UnitToggle from "../Navbar/UnitToggle/UnitToggle"; 
-
+import { useUnit } from "../../context/UnitContext";
 
 const WeatherDisplay = ({ weather, loading }) => {
-   const [unit, setUnit] = useState("C");
+  const { unit } = useUnit(); // ✅ global unit
 
-  if (loading) return /* shimmer code here */;
+  if (loading) return <p>Loading...</p>;
   if (!weather) return <p className="status">Search a city to view weather</p>;
 
   const tempC = weather.main.temp;
   const tempF = (tempC * 9) / 5 + 32;
 
   return (
-    <div className="weather-card">
-       <h2>{weather.name}, {weather.sys.country}</h2>
-
-       <div className="weathecard">
+    <div className="weather-card flex-column-center">
+      <h2>
+        {weather.name}, {weather.sys.country}
+      </h2>
+    <div className="weathecard">
         <img
         src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
         alt="weather"
       />
-    
 
       <h1>
         {unit === "C"
@@ -29,27 +27,15 @@ const WeatherDisplay = ({ weather, loading }) => {
           : `${Math.round(tempF)}°F`}
       </h1>
 
-       </div>
-       
-
-      {/* <button
-        className="unit-toggle"
-        onClick={() => setUnit(unit === "C" ? "F" : "C")}
-      >
-        Switch to °{unit === "C" ? "F" : "C"}
-      </button> */}
-
-      
-
-      <div className="col d-flex info">
+    </div>
+      <div className="info">
         <span>{weather.weather[0].description}</span>
         <span>Humidity: {weather.main.humidity}%</span>
         <span>Wind: {weather.wind.speed} km/h</span>
       </div>
     </div>
+    
   );
 };
 
 export default WeatherDisplay;
-
-

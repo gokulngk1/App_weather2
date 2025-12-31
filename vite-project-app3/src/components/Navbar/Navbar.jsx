@@ -98,7 +98,7 @@ const Navbar = ({ onSearch }) => {
   const [unit, setUnit] = useState("F");
 
   return (
-    <nav className="navbar mt-2">
+    <nav className="navbar">
 
   {/* LEFT SIDE */}
   <div className="navbar-left">
