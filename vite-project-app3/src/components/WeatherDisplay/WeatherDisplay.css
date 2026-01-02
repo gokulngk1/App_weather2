@@ -1,114 +1,135 @@
-/* Container */
+/* ================================
+   Weather Card Container
+================================ */
 .weather-card {
-  width: 420px;              /* ⬅️ single source of truth */
-  height: auto;              /* ⬅️ remove forced empty space */
-  margin: 80px auto;         /* ⬅️ center horizontally */
-  padding: 18px 30px;
-  border-radius: 20px;
+  width: 620px;
+  margin: 90px auto;
+  padding: 22px 30px;
+  border-radius: 22px;
 
-  display: flex;             /* ⬅️ IMPORTANT */
+  display: flex;
   flex-direction: column;
-  align-items: stretch;      /* ⬅️ allow inner control */
+  gap: 18px;
 
-  background: linear-gradient(135deg, #4b4773, #5b5787);
+  background: linear-gradient(
+    135deg,
+    rgba(90, 86, 140, 0.95),
+    rgba(60, 58, 110, 0.95)
+  );
+  backdrop-filter: blur(10px);
+
   color: #ffffff;
   font-family: "Segoe UI", system-ui, sans-serif;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
 }
 
-
-/* City name */
+/* ================================
+   City Name
+================================ */
 .weather-card h2 {
   font-size: 18px;
   font-weight: 500;
-  margin-bottom: 12px;
   opacity: 0.95;
-  align-self: flex-start;
 }
 
-/* Weather icon */
-.weather-card img {
-  width: 100px;
-  height: 100px;
+/* ================================
+   Header (Icon + Temp)
+================================ */
+.weather-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* Weather Icon */
+.weather-header img {
+  width: 90px;
+  height: 90px;
 }
 
 /* Temperature */
-.weather-card h1 {
-  font-size: 30px;
+.weather-header h1 {
+  font-size: 52px;
   font-weight: 600;
-  /* margin: 10px 0; */
-  /* letter-spacing: -2px; */
+  letter-spacing: -2px;
+  margin: 0;
 }
 
-/* Toggle button */
-.unit-toggle {
-  margin: 10px 0 18px;
-  padding: 6px 14px;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.2s ease;
-}
-
-.unit-toggle:hover {
-  background: rgba(255, 255, 255, 0.22);
-}
-
-/* Description */
-.desc {
-  font-size: 16px;
-  opacity: 0.9;
-  /* display: flex; */
-  margin-bottom: 22px;
-  align-items: center;
-  gap: 10px;
-}
-
-/* Info row */
-/* .info {
+/* ================================
+   Temperature Details
+================================ */
+.temp-details {
   display: flex;
-  justify-content: space-between;
-  gap: 28px;
-  flex-wrap: wrap;
-  font-size: 14px;
-  opacity: 0.9;
-} */
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 4px;
+}
 
+.temp-details p {
+  margin: 0;
+  font-size: 15px;
+  opacity: 0.9;
+  text-transform: capitalize;
+}
+
+.weather-type {
+  font-weight: 500;
+}
+
+/* ================================
+   Info Section (Humidity / Wind)
+================================ */
 .info {
   display: flex;
   justify-content: space-between;
-  gap: 18px;
+  gap: 16px;
 
-  width: 100%;
-  max-width: 320px;        /* ⬅️ match card width */
-  margin-left: auto;      /* ⬅️ align with card */
-  margin-top: 12px;
+  padding: 14px 18px;
+  margin-top: 10px;
 
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
   font-size: 14px;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
-
-/* Each stat */
 .info span {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-/* Status text */
+/* ================================
+   Status Text
+================================ */
 .status {
   text-align: center;
-  margin-top: 40px;
+  margin-top: 60px;
   font-size: 18px;
-  color: #666;
+  color: #999;
 }
 
-.weather-header {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+/* ================================
+   Responsive (Mobile)
+================================ */
+@media (max-width: 680px) {
+  .weather-card {
+    width: 92%;
+    padding: 20px;
+  }
+
+  .weather-header {
+    flex-direction: row;
+    gap: 16px;
+  }
+
+  .weather-header h1 {
+    font-size: 44px;
+  }
+
+  .info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
 }

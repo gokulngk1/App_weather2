@@ -82,15 +82,17 @@ button:focus-visible {
 
 .weathecard {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  /* align-items: center; */
+  /* justify-content: space-between; */
 
   width: 100%;
-  max-width: 320px;        /* ⬅️ reduces empty space */
-  margin-left: auto;      /* ⬅️ pushes it to the right */
+  max-width: 520px;        /* ⬅️ reduces empty space */
+  /* margin-left: auto;      ⬅️ pushes it to the right */
 
   padding: 14px 18px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.08);
+  /* border-radius: 16px; */
+  /* background: rgba(255, 255, 255, 0.08); */
 }
+
+  
 

@@ -7,8 +7,11 @@
 /* Area below navbar */
 .content-area {
   display: flex;
-  justify-content:center; /* 👉 move card to RIGHT */
+  justify-content:space-evenly; /* 👉 move card to RIGHT */
+  padding: 30px 40px;
   /* padding: 30px 40px; */
   height: 100vh;
-align-items: center;
+align-items: self-start;
+  background: linear-gradient(135deg, #4b4773, #5b5787);
+
 }
