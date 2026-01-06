@@ -1,0 +1,31 @@
+/* .weather-tabs {
+  width: 90%;
+  max-width: 900px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 30px;
+  padding-bottom: 10px;
+}
+
+.weather-tabs .tab {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  background: #e8eef7;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  color: #374151;
+  transition: 0.25s ease;
+}
+
+.weather-tabs .tab:hover {
+  background: #d5e3ff;
+}
+
+.weather-tabs .tab.active {
+  background: #4d8df6;
+  color: white;
+  box-shadow: 0 3px 8px rgba(77, 141, 246, 0.4);
+} */

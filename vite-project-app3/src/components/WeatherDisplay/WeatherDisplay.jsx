@@ -1,56 +1,3 @@
-// import "./WeatherDisplay.css";
-// import { useUnit } from "../../context/UnitContext";
-
-// const WeatherDisplay = ({ weather, loading }) => {
-//   const { unit } = useUnit(); // ✅ global unit
-
-//   if (loading) return <p>Loading...</p>;
-//   if (!weather) return <p className="status">Search a city to view weather</p>;
-
-//   const tempC = weather.main.temp;
-//   const tempF = (tempC * 9) / 5 + 32;
-
-//   return (
-//     <div className="weather-card ">
-//       <h2>
-//         {weather.name}, {weather.sys.country}
-//       </h2>
-//       <div className="backgroun">
-        
-//       </div>
-//     <div className="weathecard">
-//         <img
-//         src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-//         alt="weather"
-//       />
-
-//       <h1>
-//         {unit === "C"
-//           ? `${Math.round(tempC)}°C`
-//           : `${Math.round(tempF)}°F`}
-//       </h1>
-//       <div className="temp-details">
-//           <p className="weather-type">{current.weather[0].description}</p>
-//           <p className="feels-like">
-//             Feels like {Math.round(current.main.feels_like)}°{unit}
-//           </p>
-//         </div>
-    
-
-//     </div>
-//       <div className="info">
-//         <span>{weather.weather[0].description}</span>
-//         <span>Humidity: {weather.main.humidity}%</span>
-//         <span>Wind: {weather.wind.speed} km/h</span>
-//       </div>
-//     </div>
-    
-//   );
-// };
-
-// export default WeatherDisplay;
-
-
 import "./WeatherDisplay.css";
 import { useUnit } from "../../context/UnitContext";
 
@@ -67,7 +14,56 @@ const WeatherDisplay = ({ weather, loading }) => {
     case 5: return "Very Poor";
     default: return String(aqi);
   }
+  
 }
+
+const getWindDescription = (speedKmh) => {
+  const mph = kmhToMph(speedKmh);
+
+  if (mph >= 4 && mph <= 7)
+    return `Light breeze – (4–7 mph)\nWind felt on face – leaves rustle, wind vane moved by wind`;
+
+  if (mph >= 1 && mph <= 3)
+    return `Light air – (1–3 mph)\nSmoke drifts – still wind vane`;
+
+  if (mph >= 8 && mph <= 12)
+    return `Gentle breeze – (8–12 mph)\nLeaves and small twigs in constant motion`;
+
+  if (mph >= 13 && mph <= 18)
+    return `Moderate breeze – (13–18 mph)\nDust and loose paper raised`;
+
+  return `Windy – (${mph} mph)\nStrong noticeable movement in trees`;
+};
+const getHumidityDescription = (humidity) => {
+  if (humidity <= 30) return `${humidity}% – Dry\nAir may feel dry.`;
+  if (humidity <= 50) return `${humidity}% – Comfortable\nIdeal humidity.`;
+  if (humidity <= 60) return `${humidity}% – Slightly Humid`;
+  if (humidity <= 70) return `${humidity}% – Humid`;
+  if (humidity <= 80) return `${humidity}% – Very Humid`;
+  return `${humidity}% – Extremely Humid\nAir feels heavy.`;
+};
+
+const getVisibilityDescription = (visibilityMeters) => {
+  const mi = visibilityMeters / 1609.34;
+  if (mi > 10) return `Excellent visibility (>10 mi)`;
+  if (mi > 6) return `Good visibility (6–10 mi)`;
+  if (mi > 3) return `Moderate visibility (3–5 mi)`;
+  if (mi >= 1) return `Poor visibility (1–2 mi)`;
+  return `Very poor visibility (<1 mi)`;
+};
+
+ const getDewPointDescription = (dewPoint) => {
+  if (dewPoint < 50) return `Very Comfortable – Dry air`;
+  if (dewPoint < 60) return `Comfortable – Slight humidity`;
+  if (dewPoint < 65) return `Slightly Humid`;
+  if (dewPoint < 70) return `Humid – Muggy air`;
+  if (dewPoint < 75) return `Very Humid – Sticky`;
+  return `Extremely Humid – Very muggy`;
+};
+
+
+
+
 
   if (loading) return <p>Loading...</p>;
   if (!weather) return <p className="status">Search a city to view weather</p>;
@@ -110,13 +106,24 @@ const WeatherDisplay = ({ weather, loading }) => {
                 : `${Math.round(feelsLikeF)}°F`}
             </p>
           </div>
+          
         </div>
       </div>
 
       {/* Extra info */}
       <div className="info">
-        {/* <p>{getAQIText(current.air?.main?.aqi)} ({current.air?.main?.aqi})</p> */}
-        <span>Humidity: {weather.main.humidity}%</span>
+
+        <div> <span>Air Quality</span>
+        <span>{getAQIText(weather.air?.main?.aqi)} ({weather.air?.main?.aqi})</span>    
+        </div>
+        <div className=""><span>Visibility</span>
+        <span>{getVisibilityDescription(weather.visibility)}</span>
+        </div>
+         <div className=""> <span>Dew Point</span>
+        <span>{getDewPointDescription(weather.main.dew_point)}</span>
+       </div>
+        <div className="">   <span>Humidity: {weather.main.humidity}%</span></div>
+        <div className=""></div>
         <span>Wind: {weather.wind.speed} km/h</span>
       </div>
     </div>

@@ -2,7 +2,7 @@
    Weather Card Container
 ================================ */
 .weather-card {
-  width: 620px;
+  width: 1420px;
   margin: 90px auto;
   padding: 22px 30px;
   border-radius: 22px;
@@ -81,10 +81,10 @@
 ================================ */
 .info {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   gap: 16px;
 
-  padding: 14px 18px;
+  padding: 14px 20px;
   margin-top: 10px;
 
   background: rgba(255, 255, 255, 0.12);
@@ -93,11 +93,11 @@
   opacity: 0.95;
 }
 
-.info span {
+/* .info span {
   display: flex;
   align-items: center;
   gap: 6px;
-}
+} */
 
 /* ================================
    Status Text

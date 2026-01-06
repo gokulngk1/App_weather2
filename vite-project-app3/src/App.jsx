@@ -2,6 +2,8 @@ import { useState } from "react";
 import Navbar from "./components/Navbar/Navbar";
 import WeatherDisplay from "./components/WeatherDisplay/WeatherDisplay";
 import "./App.css";
+import WeatherTabs from "./tab/Tabs";
+
 
 function App() {
   const [weather, setWeather] = useState(null);
@@ -11,7 +13,7 @@ function App() {
   const handleWeatherResult = (data) => {
     setWeather(data);
   };
-
+  const [activeTab, setActiveTab] = useState("Overview");
   return (
     <div>
       <Navbar onSearch={handleWeatherResult} />
@@ -24,6 +26,8 @@ function App() {
           setUnit={setUnit}
         />
       </div>
+      <WeatherTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+      
     </div>
   );
 }
