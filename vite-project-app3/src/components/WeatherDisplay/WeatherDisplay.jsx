@@ -4,6 +4,8 @@ import { useUnit } from "../../context/UnitContext";
 const WeatherDisplay = ({ weather, loading }) => {
   const { unit } = useUnit(); // ✅ global unit
 
+  const kmhToMph = (kmh) => kmh / 1.60934;
+
   function getAQIText(aqi) {
   if (aqi == null) return "--";
   switch (Number(aqi)) {

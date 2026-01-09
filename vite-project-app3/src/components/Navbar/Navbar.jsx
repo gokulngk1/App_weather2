@@ -108,7 +108,7 @@ const Navbar = ({ onSearch }) => {
 
   {/* RIGHT SIDE */}
   <div className="toggles-group">
-    <Theme theme={theme} setTheme={setTheme} />
+    {/* <Theme theme={theme} setTheme={setTheme} /> */}
     <UnitToggle unit={unit} setUnit={setUnit} />
   </div>
 

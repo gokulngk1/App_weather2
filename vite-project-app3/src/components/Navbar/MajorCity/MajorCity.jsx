@@ -4,7 +4,7 @@ import "./Majorcity.css";
 
 const cities = ["London", "Paris", "Tokyo", "Delhi"];
 
-const MajorCity = () => {
+const MajorCity = ({ onSearch }) => {
   const [weatherList, setWeatherList] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -26,6 +26,12 @@ const MajorCity = () => {
     fetchWeather();
   }, []);
 
+  const handleCityClick = (weather) => {
+    if (weather && onSearch) {
+      onSearch(weather);
+    }
+  };
+
   if (loading) {
     return <p className="text-center">Loading...</p>;
   }
@@ -33,7 +39,12 @@ const MajorCity = () => {
   return (
     <div className="major-cities-container mt-2">
       {weatherList.map((weather, index) => (
-        <div className="current-weather-box" key={cities[index]}>
+        <div 
+          className="current-weather-box" 
+          key={cities[index]}
+          onClick={() => handleCityClick(weather)}
+          style={{ cursor: 'pointer' }}
+        >
           <span className="location-name">
             {cities[index]}{" "}
             <img

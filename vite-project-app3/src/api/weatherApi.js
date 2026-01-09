@@ -14,3 +14,18 @@ export const fetchWeatherByCity = async (city) => {
     return null;
   }
 };
+
+export const fetchForecastByCity = async (city) => {
+  try {
+    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=metric`;
+    const response = await fetch(url);
+
+    const data = await response.json();
+    if (data.cod !== "200") return null;
+
+    return data;
+  } catch (err) {
+    console.error("Forecast API error:", err);
+    return null;
+  }
+};

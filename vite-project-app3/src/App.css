@@ -7,11 +7,10 @@
 /* Area below navbar */
 .content-area {
   display: flex;
-  justify-content:space-evenly; /* 👉 move card to RIGHT */
-  padding: 30px 40px;
-  /* padding: 30px 40px; */
-  height: 100vh;
-align-items: self-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 30px 20px;
   background: linear-gradient(135deg, #4b4773, #5b5787);
-
+  min-height: auto;
 }
