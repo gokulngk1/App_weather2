@@ -84,7 +84,7 @@
 
 
 
-import React, { useState } from "react";
+import React from "react";
 import "./Navbar.css";
 
 import SearchCity from "../Search/SearchCity";
@@ -94,9 +94,6 @@ import UnitToggle from "./UnitToggle/UnitToggle";
 
 
 const Navbar = ({ onSearch }) => {
-  const [theme, setTheme] = useState("dark");
-  const [unit, setUnit] = useState("F");
-
   return (
     <nav className="navbar">
 
@@ -108,8 +105,8 @@ const Navbar = ({ onSearch }) => {
 
   {/* RIGHT SIDE */}
   <div className="toggles-group">
-    {/* <Theme theme={theme} setTheme={setTheme} /> */}
-    <UnitToggle unit={unit} setUnit={setUnit} />
+    <Theme />
+    <UnitToggle />
   </div>
 
 </nav>
