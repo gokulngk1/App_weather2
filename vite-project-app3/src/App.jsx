@@ -131,11 +131,13 @@ function App() {
                   hour: "2-digit",
                   minute: "2-digit",
                 }),
-                temp: unit === "C" ? item.main.temp : (item.main.temp * 9) / 5 + 32,
+                // temp: unit === "C" ? item.main.temp : (item.main.temp * 9) / 5 + 32,
+                temp: item?.wind?.speed,
                 precipitation: Math.round(item.pop * 100),
                 icon: `https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`,
               }))}
               unit={unit}
+              activeTab={activeTab}
             />
           )}
         </>

@@ -186,7 +186,6 @@ export default function WeatherTabs({ weather, activeTab, setActiveTab }) {
           </button>
         ))}
       </div>
-      
     </div>
   );
 }

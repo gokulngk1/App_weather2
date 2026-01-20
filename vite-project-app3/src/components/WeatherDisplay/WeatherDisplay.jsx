@@ -76,6 +76,9 @@ const getVisibilityDescription = (visibilityMeters) => {
   const feelsLikeC = weather.main.feels_like;
   const feelsLikeF = (feelsLikeC * 9) / 5 + 32;
 
+  console.log("weather", weather);
+  
+
   return (
     <div className="weather-card">
       {/* City */}
@@ -115,7 +118,10 @@ const getVisibilityDescription = (visibilityMeters) => {
       {/* Extra info */}
       <div className="info">
 
-        <div> <span>Air Quality</span>
+        {/* <div> <span>Air Quality</span>
+        <span>{getAQIText(weather.air?.main?.aqi)} ({weather.air?.main?.aqi})</span>    
+        </div> */}
+         <div> <span>Sun Rise</span>
         <span>{getAQIText(weather.air?.main?.aqi)} ({weather.air?.main?.aqi})</span>    
         </div>
         <div className=""><span>Visibility</span>
@@ -128,6 +134,9 @@ const getVisibilityDescription = (visibilityMeters) => {
         <div className=""></div>
         <span>Wind: {weather.wind.speed} km/h</span>
       </div>
+       <div> <span>Sun set</span>
+        <span>{getAQIText(weather.air?.main?.aqi)} ({weather.air?.main?.aqi})</span>    
+        </div>
     </div>
   );
 };

@@ -66,7 +66,7 @@ const PrecipTick = ({ x, y, payload }) => {
 
 
 // ======================= MAIN COMPONENT ===========================
-export default function HourlyWeatherGraph({ hourly, unit }) {
+export default function HourlyWeatherGraph({ hourly, unit,activeTab=""}) {
   const finalData = useMemo(() => {
     return hourly.map((item) => ({
       time: item.time,
@@ -76,7 +76,8 @@ export default function HourlyWeatherGraph({ hourly, unit }) {
       unit: unit,
     }));
   }, [hourly, unit]);
-
+  console.log("activeTab", activeTab);
+  
 
   return (
     <div className="hourly-wrapper">
@@ -114,7 +115,7 @@ export default function HourlyWeatherGraph({ hourly, unit }) {
             <XAxis
               dataKey="time"
               tick={<PrecipTick />}
-              interval={0}
+              interval={10}
               height={100}
             />
 
