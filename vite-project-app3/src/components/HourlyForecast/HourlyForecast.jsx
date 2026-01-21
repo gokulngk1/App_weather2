@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { weatherIconMap } from "../weatherIcons";
 import rainDropSVG from "../assets/rainDrop.svg";
 
@@ -64,9 +64,34 @@ const PrecipTick = ({ x, y, payload }) => {
   );
 };
 
-
 // ======================= MAIN COMPONENT ===========================
-export default function HourlyWeatherGraph({ hourly, unit,activeTab=""}) {
+export default function HourlyWeatherGraph({ hourly, unit, activeTab = "" }) {
+  const [yAxisMetric, setYAxisMetric] = useState("temp");
+  const [lineMetric, setLineMetric] = useState("temp");
+
+  // Sync metrics with active tab
+  useEffect(() => {
+    switch (activeTab) {
+      case "Wind":
+        setYAxisMetric("wind");
+        setLineMetric("wind");
+        break;
+      case "Humidity":
+        setYAxisMetric("humidity");
+        setLineMetric("humidity");
+        break;
+      case "Visibility":
+        setYAxisMetric("visibility");
+        setLineMetric("visibility");
+        break;
+      case "Overview":
+      default:
+        setYAxisMetric("temp");
+        setLineMetric("temp");
+        break;
+    }
+  }, [activeTab]);
+
   const finalData = useMemo(() => {
     return hourly.map((item) => ({
       time: item.time,
@@ -79,12 +104,79 @@ export default function HourlyWeatherGraph({ hourly, unit,activeTab=""}) {
       visibility: item.visibility ?? 0,
     }));
   }, [hourly, unit]);
-  console.log("activeTab", activeTab);
-  
+
+  const getYAxisLabel = () => {
+    switch (yAxisMetric) {
+      case "temp":
+        return `°${unit}`;
+      case "wind":
+        return "m/s";
+      case "humidity":
+        return "%";
+      case "visibility":
+        return "km";
+      default:
+        return "";
+    }
+  };
+
+  const getLineColor = () => {
+    switch (lineMetric) {
+      case "temp":
+        return "#ff7b00";
+      case "wind":
+        return "#1e40af";
+      case "humidity":
+        return "#0369a1";
+      case "visibility":
+        return "#7c3aed";
+      default:
+        return "#ff7b00";
+    }
+  };
+
+  const getMetricLabel = () => {
+    switch (yAxisMetric) {
+      case "temp":
+        return "Temperature Forecast";
+      case "wind":
+        return "Wind Speed Forecast";
+      case "humidity":
+        return "Humidity Forecast";
+      case "visibility":
+        return "Visibility Forecast";
+      default:
+        return "Hourly Forecast";
+    }
+  };
 
   return (
     <div className="hourly-wrapper">
-      <h3 className="hourly-title">Hourly Forecast</h3>
+      <div className="hourly-header-controls">
+        <h3 className="hourly-title">{getMetricLabel()}</h3>
+
+        <div className="metric-controls">
+          <div className="control-group">
+            <label>Y-Axis:</label>
+            <select value={yAxisMetric} onChange={(e) => setYAxisMetric(e.target.value)}>
+              <option value="temp">Temperature</option>
+              <option value="wind">Wind Speed</option>
+              <option value="humidity">Humidity</option>
+              <option value="visibility">Visibility</option>
+            </select>
+          </div>
+
+          <div className="control-group">
+            <label>Line:</label>
+            <select value={lineMetric} onChange={(e) => setLineMetric(e.target.value)}>
+              <option value="temp">Temperature</option>
+              <option value="wind">Wind Speed</option>
+              <option value="humidity">Humidity</option>
+              <option value="visibility">Visibility</option>
+            </select>
+          </div>
+        </div>
+      </div>
 
       {/* HEADER */}
       <div className="hourly-header">
@@ -105,15 +197,15 @@ export default function HourlyWeatherGraph({ hourly, unit,activeTab=""}) {
             <p className="h-temp">
               {item.temp !== null ? `${Math.round(item.temp)}°${item.unit}` : "--"}
             </p>
-            
+
             <p className="h-wind">
               💨 {item.wind} m/s
             </p>
-            
+
             <p className="h-humidity">
               💧 {item.humidity}%
             </p>
-            
+
             <p className="h-visibility">
               👁️ {item.visibility} km
             </p>
@@ -136,7 +228,14 @@ export default function HourlyWeatherGraph({ hourly, unit,activeTab=""}) {
 
             <YAxis
               yAxisId="left"
-              tickFormatter={(value) => `${value}°${unit}`}
+              tickFormatter={(value) => `${value}${getYAxisLabel()}`}
+              tick={{ fill: "#444", fontSize: 12, fontWeight: 600 }}
+            />
+
+            <YAxis
+              yAxisId="right"
+              orientation="right"
+              tickFormatter={(value) => `${value}%`}
               tick={{ fill: "#444", fontSize: 12, fontWeight: 600 }}
             />
 
@@ -152,7 +251,6 @@ export default function HourlyWeatherGraph({ hourly, unit,activeTab=""}) {
                 dataKey="precipitation"
                 content={(props) => {
                   const { x, value, viewBox } = props;
-
                   const fixedY = viewBox.y + viewBox.height + 15;
 
                   return (
@@ -182,8 +280,8 @@ export default function HourlyWeatherGraph({ hourly, unit,activeTab=""}) {
             <Line
               yAxisId="left"
               type="monotone"
-              dataKey="temp"
-              stroke="#ff7b00"
+              dataKey={lineMetric}
+              stroke={getLineColor()}
               strokeWidth={3}
               dot={{ r: 6 }}
               activeDot={{ r: 8 }}

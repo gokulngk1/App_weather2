@@ -120,22 +120,6 @@ export default function WeatherTabs({ weather, activeTab, setActiveTab }) {
           </div>
         );
 
-      case "Air Quality":
-        return (
-          <div className="tab-content">
-            <div className="tab-item">
-              <span className="label">Air Quality Index</span>
-              <span className="value">
-                {getAQIText(weather.air?.main?.aqi)} ({weather.air?.main?.aqi || "N/A"})
-              </span>
-            </div>
-            <div className="tab-item">
-              <span className="label">Note</span>
-              <span className="value">Air Quality data requires additional API call</span>
-            </div>
-          </div>
-        );
-
       case "Humidity":
         return (
           <div className="tab-content">

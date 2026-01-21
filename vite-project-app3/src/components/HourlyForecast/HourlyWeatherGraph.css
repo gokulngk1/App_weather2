@@ -8,12 +8,61 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
+.hourly-header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  gap: 20px;
+}
+
 .hourly-title {
   font-size: 20px;
   font-weight: 700;
-  margin: 0 0 25px 0;
+  margin: 0;
   color: #fff;
   letter-spacing: -0.5px;
+}
+
+.metric-controls {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.control-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.control-group select {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 2px solid #a5d8f7;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.control-group select:hover {
+  border-color: #60a5fa;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+}
+
+.control-group select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 /* HOURLY HEADER - Cards with time, icon, temp */
@@ -148,6 +197,20 @@
   .hourly-wrapper {
     width: 95%;
     padding: 15px;
+  }
+
+  .hourly-header-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .metric-controls {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .control-group {
+    width: 100%;
   }
 
   .hourly-header-item {
