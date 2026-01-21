@@ -95,6 +95,27 @@
   margin: 8px 0 0 0;
 }
 
+.h-wind,
+.h-humidity,
+.h-visibility {
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+  margin: 4px 0 0 0;
+}
+
+.h-wind {
+  color: #1e40af;
+}
+
+.h-humidity {
+  color: #0369a1;
+}
+
+.h-visibility {
+  color: #7c3aed;
+}
+
 /* CHART SECTION */
 .scroll-area {
   overflow-x: auto;

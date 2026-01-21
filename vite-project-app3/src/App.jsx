@@ -135,6 +135,9 @@ function App() {
                 temp: item?.wind?.speed,
                 precipitation: Math.round(item.pop * 100),
                 icon: `https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`,
+                wind: Math.round(item?.wind?.speed) || 0,
+                humidity: item?.main?.humidity || 0,
+                visibility: Math.round((item?.visibility || 0) / 1000),
               }))}
               unit={unit}
               activeTab={activeTab}

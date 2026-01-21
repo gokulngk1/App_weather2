@@ -74,6 +74,9 @@ export default function HourlyWeatherGraph({ hourly, unit,activeTab=""}) {
       precipitation: item.precipitation ?? 0,
       icon: item.icon ?? null,
       unit: unit,
+      wind: item.wind ?? 0,
+      humidity: item.humidity ?? 0,
+      visibility: item.visibility ?? 0,
     }));
   }, [hourly, unit]);
   console.log("activeTab", activeTab);
@@ -101,6 +104,18 @@ export default function HourlyWeatherGraph({ hourly, unit,activeTab=""}) {
 
             <p className="h-temp">
               {item.temp !== null ? `${Math.round(item.temp)}°${item.unit}` : "--"}
+            </p>
+            
+            <p className="h-wind">
+              💨 {item.wind} m/s
+            </p>
+            
+            <p className="h-humidity">
+              💧 {item.humidity}%
+            </p>
+            
+            <p className="h-visibility">
+              👁️ {item.visibility} km
             </p>
           </div>
         ))}
