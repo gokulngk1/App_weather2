@@ -77,6 +77,13 @@ const getVisibilityDescription = (visibilityMeters) => {
   const feelsLikeF = (feelsLikeC * 9) / 5 + 32;
 
   console.log("weather", weather);
+  const formatTime = (timestamp) => {
+  if (!timestamp) return "--";
+  return new Date(timestamp * 1000).toLocaleTimeString("en-IN", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
   
 
   return (
@@ -117,12 +124,8 @@ const getVisibilityDescription = (visibilityMeters) => {
 
       {/* Extra info */}
       <div className="info">
-
-        {/* <div> <span>Air Quality</span>
-        <span>{getAQIText(weather.air?.main?.aqi)} ({weather.air?.main?.aqi})</span>    
-        </div> */}
-         <div> <span>Sun Rise</span>
-        <span>{getAQIText(weather.air?.main?.aqi)} ({weather.air?.main?.aqi})</span>    
+         <div> <span>Sun Rise : </span>
+         <span>{formatTime(weather.sys?.sunrise)}</span>
         </div>
         <div className=""><span>Visibility</span>
         <span>{getVisibilityDescription(weather.visibility)}</span>
@@ -133,10 +136,11 @@ const getVisibilityDescription = (visibilityMeters) => {
         <div className="">   <span>Humidity: {weather.main.humidity}%</span></div>
         <div className=""></div>
         <span>Wind: {weather.wind.speed} km/h</span>
-      </div>
-       <div> <span>Sun set</span>
-        <span>{getAQIText(weather.air?.main?.aqi)} ({weather.air?.main?.aqi})</span>    
+        <div> 
+        <span>Sun set : </span>
+        <span>{formatTime(weather.sys?.sunset)}</span>
         </div>
+      </div>
     </div>
   );
 };

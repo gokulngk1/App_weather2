@@ -6,8 +6,7 @@ export default function WeatherTabs({ weather, activeTab, setActiveTab }) {
   const { unit } = useUnit();
   const tabs = [
     "Overview",
-    "Wind",
-    "Air Quality",
+    "Wind",,
     "Humidity",
     "Visibility",
   ];

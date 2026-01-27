@@ -1,6 +1,5 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { weatherIconMap } from "../weatherIcons";
-import rainDropSVG from "../assets/rainDrop.svg";
 
 import {
   LineChart,
@@ -17,49 +16,50 @@ import {
 import "./HourlyWeatherGraph.css";
 
 // ======================= CUSTOM X-AXIS TICK ===========================
-const PrecipTick = ({ x, y, payload }) => {
+const PrecipTick = ({ x, y, payload, metric, getLabel }) => {
   if (!payload || !payload.payload) return null;
 
   const item = payload.payload;
   const localIcon = weatherIconMap[item?.icon];
+  const value = item?.[metric];
+  
 
   return (
     <g transform={`translate(${x},${y})`}>
       {/* TIME */}
       <text
         x={0}
-        y={-35}
+        y={15}
         textAnchor="middle"
-        fontSize="12"
+        fontSize="11"
         fill="#007bff"
         fontWeight="600"
       >
         {item?.time}
       </text>
 
-      {/* FIXED ICON */}
+      {/* METRIC VALUE - Displayed below time */}
+      <text
+        x={0}
+        y={30}
+        textAnchor="middle"
+        fontSize="12"
+        fill="#ff7b00"
+        fontWeight="700"
+      >
+        {value !== null && value !== undefined ? `${Math.round(value)}${getLabel()}` : "--"}
+      </text>
+
+      {/* WEATHER ICON */}
       {localIcon && (
         <image
           xlinkHref={localIcon}
-          x={-14}
-          y={-22}
-          width={28}
-          height={28}
+          x={-13}
+          y={-20}
+          width={26}
+          height={26}
         />
       )}
-
-      {/* TEMP */}
-      <text
-        x={0}
-        y={0}
-        dy={10}
-        textAnchor="middle"
-        fontSize="12"
-        fill="#ff8c00"
-        fontWeight="600"
-      >
-        {item?.temp !== null ? `${Math.round(item.temp)}°${item.unit}` : "--"}
-      </text>
     </g>
   );
 };
@@ -180,101 +180,102 @@ export default function HourlyWeatherGraph({ hourly, unit, activeTab = "" }) {
 
       {/* HEADER */}
       <div className="hourly-header">
-        {finalData.map((item, i) => (
-          <div key={i} className="hourly-header-item">
-            <p className="h-time">{item.time}</p>
+        {finalData.map((item, i) => {
+          const iconUrl = weatherIconMap[item.icon];
+          return (
+            <div key={i} className="hourly-header-item">
+              <p className="h-time">{item.time}</p>
 
-            {item.icon ? (
-              <img
-                className="h-icon"
-                src={item.icon}
-                alt="weather icon"
-              />
-            ) : (
-              <div className="no-icon" />
-            )}
+              {iconUrl ? (
+                <img
+                  className="h-icon"
+                  src={iconUrl}
+                  alt="weather icon"
+                />
+              ) : (
+                <div className="no-icon" />
+              )}
 
-            <p className="h-temp">
-              {item.temp !== null ? `${Math.round(item.temp)}°${item.unit}` : "--"}
-            </p>
+              <p className="h-temp">
+                {item.temp !== null ? `${Math.round(item.temp)}°${unit}` : "--"}
+              </p>
 
-            <p className="h-wind">
-              💨 {item.wind} m/s
-            </p>
+              <p className="h-wind">
+                💨 {item.wind} m/s
+              </p>
 
-            <p className="h-humidity">
-              💧 {item.humidity}%
-            </p>
+              <p className="h-humidity">
+                💧 {item.humidity}%
+              </p>
 
-            <p className="h-visibility">
-              👁️ {item.visibility} km
-            </p>
-          </div>
-        ))}
+              <p className="h-visibility">
+                👁️ {item.visibility} km
+              </p>
+            </div>
+          );
+        })}
       </div>
 
       {/* GRAPH */}
       <div className="scroll-area">
-        <ResponsiveContainer width={1300} height={380}>
-          <LineChart data={finalData} margin={{ top: 20, bottom: 60 }}>
+        <ResponsiveContainer width="100%" height={350}>
+          <LineChart data={finalData} margin={{ top: 10, bottom: 40, left: 40, right: 40 }}>
             <CartesianGrid stroke="#e0e0e0" strokeDasharray="4 4" />
 
             <XAxis
               dataKey="time"
-              tick={<PrecipTick />}
-              interval={10}
-              height={100}
+              // tick={<PrecipTick metric={yAxisMetric} getLabel={getYAxisLabel} />}
+              interval={Math.floor(finalData.length / 16)}
+              height={80}
             />
 
             <YAxis
               yAxisId="left"
-              tickFormatter={(value) => `${value}${getYAxisLabel()}`}
-              tick={{ fill: "#444", fontSize: 12, fontWeight: 600 }}
+              label={{ value: getMetricLabel().split(" ")[0], angle: -90, position: "insideLeft", fontSize: 11 }}
+              tickFormatter={(value) => `${Math.round(value)}${getYAxisLabel()}`}
+              tick={{ fill: "#333", fontSize: 10, fontWeight: 600 }}
+              width={50}
             />
 
-            <YAxis
+            {/* <YAxis
               yAxisId="right"
               orientation="right"
+              label={{ value: "Precipitation (%)", angle: 90, position: "insideRight", fontSize: 11 }}
               tickFormatter={(value) => `${value}%`}
-              tick={{ fill: "#444", fontSize: 12, fontWeight: 600 }}
-            />
+              tick={{ fill: "#333", fontSize: 10, fontWeight: 600 }}
+              width={50}
+            /> */}
 
             <Bar
-              yAxisId="right"
-              dataKey="precipitation"
-              fill="#4aa3ff"
-              barSize={20}
-              opacity={0.55}
-              radius={[6, 6, 0, 0]}
+              // yAxisId="bottom"
+              // dataKey="precipitation"
+              // fill="#4aa3ff"
+              // barSize={12}
+              // opacity={0.55}
+              // radius={[4, 4, 0, 0]}
             >
-              <LabelList
+              {/* <LabelList
                 dataKey="precipitation"
                 content={(props) => {
                   const { x, value, viewBox } = props;
                   const fixedY = viewBox.y + viewBox.height + 15;
 
                   return (
-                    <g transform={`translate(${x - 10}, ${fixedY})`}>
-                      <image
-                        href={rainDropSVG}
-                        width={14}
-                        height={14}
-                        x={0}
-                        y={-10}
-                      />
+                    <g transform={`translate(${x}, ${fixedY})`}>
                       <text
-                        x={20}
+                        x={0}
                         y={0}
                         fontSize="12"
                         fill="black"
                         fontWeight="600"
+                        textAnchor="middle"
                       >
                         {value}%
                       </text>
                     </g>
                   );
                 }}
-              />
+              /> */}
             </Bar>
 
             <Line

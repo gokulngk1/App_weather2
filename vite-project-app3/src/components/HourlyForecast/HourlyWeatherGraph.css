@@ -1,11 +1,11 @@
 .hourly-wrapper {
-  background: linear-gradient(135deg, #4b4773, #5b5787);
+  background: linear-gradient(135deg, #3a3d5c 0%, #4a4a6b 100%);
   border-radius: 16px;
   padding: 25px;
   margin: 20px auto;
   width: 90%;
   max-width: 1550px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1));
 }
 
 .hourly-header-controls {
