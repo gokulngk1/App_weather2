@@ -155,7 +155,7 @@ export default function HourlyWeatherGraph({ hourly, unit, activeTab = "" }) {
       <div className="hourly-header-controls">
         <h3 className="hourly-title">{getMetricLabel()}</h3>
 
-        <div className="metric-controls">
+        {/* <div className="metric-controls">
           <div className="control-group">
             <label>Y-Axis:</label>
             <select value={yAxisMetric} onChange={(e) => setYAxisMetric(e.target.value)}>
@@ -175,7 +175,7 @@ export default function HourlyWeatherGraph({ hourly, unit, activeTab = "" }) {
               <option value="visibility">Visibility</option>
             </select>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* HEADER */}

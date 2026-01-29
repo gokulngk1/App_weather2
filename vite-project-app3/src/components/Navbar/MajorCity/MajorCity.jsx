@@ -1,21 +1,34 @@
 import { useEffect, useState } from "react";
 import { fetchWeatherByCity } from "../../../api/weatherApi";
+import { API_CONFIG } from "../../../api/config";
+import { useUnit } from "../../../context/UnitContext";
 import "./Majorcity.css";
-
-const cities = ["London", "Paris", "Tokyo", "Delhi"];
 
 const MajorCity = ({ onSearch }) => {
   const [weatherList, setWeatherList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { unit } = useUnit();
 
+  /**
+   * Convert unit from context to API units
+   */
+  const getApiUnit = () => {
+    return unit === "C" ? "metric" : "imperial";
+  };
+
+  /**
+   * Fetch weather for all major cities
+   */
   useEffect(() => {
     const fetchWeather = async () => {
       setLoading(true);
       try {
         const data = await Promise.all(
-          cities.map((city) => fetchWeatherByCity(city))
+          API_CONFIG.MAJOR_CITIES.map((city) => 
+            fetchWeatherByCity(city, getApiUnit())
+          )
         );
-        setWeatherList(data);
+        setWeatherList(data.filter((item) => item !== null));
       } catch (err) {
         console.error("Failed to load major cities weather", err);
       } finally {
@@ -24,8 +37,11 @@ const MajorCity = ({ onSearch }) => {
     };
 
     fetchWeather();
-  }, []);
+  }, [unit]); // Re-fetch when unit changes
 
+  /**
+   * Handle city click to display its weather
+   */
   const handleCityClick = (weather) => {
     if (weather && onSearch) {
       onSearch(weather);
@@ -33,7 +49,11 @@ const MajorCity = ({ onSearch }) => {
   };
 
   if (loading) {
-    return <p className="text-center">Loading...</p>;
+    return <p className="text-center">Loading cities...</p>;
+  }
+
+  if (weatherList.length === 0) {
+    return <p className="text-center">Failed to load major cities</p>;
   }
 
   return (
@@ -41,18 +61,21 @@ const MajorCity = ({ onSearch }) => {
       {weatherList.map((weather, index) => (
         <div 
           className="current-weather-box" 
-          key={cities[index]}
+          key={weather?.id || index}
           onClick={() => handleCityClick(weather)}
           style={{ cursor: 'pointer' }}
+          title={`Click to view ${weather?.name} weather`}
         >
           <span className="location-name">
-            {cities[index]}{" "}
-            <img
-              src={`https://openweathermap.org/img/wn/${weather?.weather?.[0]?.icon}@2x.png`}
-              alt={weather?.weather?.[0]?.description || "weather"}
-              width="20"
-              style={{ verticalAlign: "middle" }}
-            />{" "}
+            {weather?.name}{" "}
+            {weather?.weather?.[0]?.icon && (
+              <img
+                src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+                alt={weather.weather[0].description || "weather"}
+                width="20"
+                style={{ verticalAlign: "middle" }}
+              />
+            )}{" "}
             {Math.round(weather?.main?.temp)}°
           </span>
         </div>

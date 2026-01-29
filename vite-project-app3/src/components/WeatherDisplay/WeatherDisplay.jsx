@@ -124,7 +124,7 @@ const getVisibilityDescription = (visibilityMeters) => {
 
       {/* Extra info */}
       <div className="info">
-         <div> <span>Sun Rise : </span>
+         <div> <span>🌅 Sun Rise : </span>
          <span>{formatTime(weather.sys?.sunrise)}</span>
         </div>
         <div className=""><span>Visibility</span>
@@ -137,7 +137,7 @@ const getVisibilityDescription = (visibilityMeters) => {
         <div className=""></div>
         <span>Wind: {weather.wind.speed} km/h</span>
         <div> 
-        <span>Sun set : </span>
+        <span> 🌇 Sun set : </span>
         <span>{formatTime(weather.sys?.sunset)}</span>
         </div>
       </div>

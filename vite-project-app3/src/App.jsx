@@ -39,9 +39,11 @@ import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar/Navbar";
 import WeatherDisplay from "./components/WeatherDisplay/WeatherDisplay";
 import HourlyWeatherGraph from "./components/HourlyForecast/HourlyForecast";
+import WeatherDetails from "./components/WeatherDetails/WeatherDetails";
 import "./App.css";
 import WeatherTabs from "./tab/Tabs";
-import { fetchForecastByCity } from "./api/weatherApi";
+import { fetchWeatherByCity, fetchForecastByCity } from "./api/weatherApi";
+import { API_CONFIG } from "./api/config";
 import { useUnit } from "./context/UnitContext";
 
 function App() {
@@ -52,20 +54,33 @@ function App() {
   const [activeTab, setActiveTab] = useState("Overview");
   const { unit } = useUnit();
 
-  // 🔹 Fetch weather (used for both default & search)
-  const handleWeatherResult = async (dataOrCity) => {
+  /**
+   * Convert unit from context to API units
+   */
+  const getApiUnit = () => {
+    return unit === "C" ? "metric" : "imperial";
+  };
+
+  /**
+   * Fetch weather and forecast for a given city
+   */
+  const fetchCityWeather = async (cityName) => {
     try {
       setLoading(true);
       setError(null);
 
-      // If Navbar already sends weather object
-      if (typeof dataOrCity === "object" && dataOrCity.name) {
-        setWeather(dataOrCity);
-        // Fetch forecast for the city
-        const forecastData = await fetchForecastByCity(dataOrCity.name);
-        if (forecastData) {
-          setForecast(forecastData);
-        }
+      const weatherData = await fetchWeatherByCity(cityName, getApiUnit());
+      if (!weatherData) {
+        setError(`Could not find weather for ${cityName}`);
+        return;
+      }
+
+      setWeather(weatherData);
+
+      // Fetch forecast for the city
+      const forecastData = await fetchForecastByCity(cityName, getApiUnit());
+      if (forecastData) {
+        setForecast(forecastData);
       }
     } catch (err) {
       console.error("Failed to load weather", err);
@@ -75,38 +90,34 @@ function App() {
     }
   };
 
-  // 🔹 DEFAULT CITY → Chennai
-  useEffect(() => {
-    const loadDefaultCity = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const res = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?q=Chennai&units=metric&appid=4e8a86f79d5484ae4cda8af753e9e97f`
-        );
-        
-        if (!res.ok) throw new Error("Failed to fetch weather");
-        
-        const data = await res.json();
-        if (data.cod === 200) {
-          setWeather(data);
-          
-          // Fetch forecast for default city
-          const forecastData = await fetchForecastByCity("Chennai");
-          if (forecastData) {
-            setForecast(forecastData);
-          }
-        }
-      } catch (err) {
-        console.error("Default city load failed", err);
-        setError("Failed to load default weather");
-      } finally {
-        setLoading(false);
-      }
-    };
+  /**
+   * Handle weather result from search/navbar
+   */
+  const handleWeatherResult = async (dataOrCity) => {
+    // If it's already a weather object (from navbar buttons)
+    if (typeof dataOrCity === "object" && dataOrCity.name) {
+      await fetchCityWeather(dataOrCity.name);
+    } else if (typeof dataOrCity === "string") {
+      // If it's a city name string
+      await fetchCityWeather(dataOrCity);
+    }
+  };
 
-    loadDefaultCity();
+  /**
+   * Load default city on app mount
+   */
+  useEffect(() => {
+    fetchCityWeather(API_CONFIG.DEFAULT_CITY);
   }, []);
+
+  /**
+   * Re-fetch weather when unit changes
+   */
+  useEffect(() => {
+    if (weather?.name) {
+      fetchCityWeather(weather.name);
+    }
+  }, [unit]);
 
   return (
     <div>
@@ -124,6 +135,7 @@ function App() {
       {weather && (
         <>
           <WeatherTabs weather={weather} activeTab={activeTab} setActiveTab={setActiveTab} />
+         
           {forecast && forecast.list && (
             <HourlyWeatherGraph 
               hourly={forecast.list.slice(0, 8).map((item) => ({
@@ -142,11 +154,10 @@ function App() {
               activeTab={activeTab}
             />
           )}
-        </>
+          <WeatherDetails weather={weather} forecast={forecast} />        </>
       )}
     </div>
   );
 }
 
 export default App;
-

@@ -1,94 +1,73 @@
 import React, { useState, useCallback, useRef } from "react";
 import "./SearchCity.css";
-
-/* ===============================
-   API CONFIG
-================================ */
-const API_KEY = "4e8a86f79d5484ae4cda8af753e9e97f";
-
-/* ===============================
-   FETCH WEATHER
-================================ */
-const fetchWeatherByCity = async (city) => {
-  try {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(
-      city
-    )}&appid=${API_KEY}&units=metric`;
-
-    const res = await fetch(url);
-    const data = await res.json();
-
-    if (!res.ok) throw new Error("City not found");
-    return data;
-  } catch (err) {
-    console.error("Weather API error:", err);
-    return null;
-  }
-};
-
-/* ===============================
-   FETCH CITY SUGGESTIONS
-================================ */
-const fetchCitySuggestions = async (query) => {
-  try {
-    const url = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(
-      query
-    )}&limit=6&appid=${API_KEY}`;
-
-    const res = await fetch(url);
-    return await res.json();
-  } catch (err) {
-    console.error("City suggestion error:", err);
-    return [];
-  }
-};
+import { fetchWeatherByCity, fetchCitySuggestions } from "../../api/weatherApi";
+import { useUnit } from "../../context/UnitContext";
 
 const SearchCity = ({ onResult }) => {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { unit } = useUnit();
 
   const debounceRef = useRef(null);
 
-  /* ===============================
-     DEBOUNCED INPUT HANDLER
-  =============================== */
-  const handleChange = useCallback((e) => {
-    const value = e.target.value;
-    setQuery(value);
+  /**
+   * Convert unit from context to API units
+   */
+  const getApiUnit = () => {
+    return unit === "C" ? "metric" : "imperial";
+  };
 
-    clearTimeout(debounceRef.current);
+  /**
+   * Handle input change with debounced suggestions
+   */
+  const handleChange = useCallback(
+    (e) => {
+      const value = e.target.value;
+      setQuery(value);
 
-    debounceRef.current = setTimeout(async () => {
-      if (!value.trim()) {
-        setSuggestions([]);
-        setShowSuggestions(false);
-        return;
-      }
+      clearTimeout(debounceRef.current);
 
-      const cities = await fetchCitySuggestions(value);
-      setSuggestions(cities);
-      setShowSuggestions(true);
-    }, 500);
-  }, []);
+      debounceRef.current = setTimeout(async () => {
+        if (!value.trim()) {
+          setSuggestions([]);
+          setShowSuggestions(false);
+          return;
+        }
 
-  /* ===============================
-     SEARCH BUTTON CLICK
-  =============================== */
+        setLoading(true);
+        const cities = await fetchCitySuggestions(value);
+        setSuggestions(cities);
+        setShowSuggestions(cities.length > 0);
+        setLoading(false);
+      }, 500);
+    },
+    []
+  );
+
+  /**
+   * Handle search button click
+   */
   const handleSearchClick = async () => {
     if (!query.trim()) return;
 
     setShowSuggestions(false);
+    setLoading(true);
 
-    const data = await fetchWeatherByCity(query);
+    const data = await fetchWeatherByCity(query, getApiUnit());
     if (data && onResult) {
-      onResult(data); // 🔥 sends data to App → WeatherDisplay
+      onResult(data);
+      setQuery("");
+    } else {
+      alert("City not found. Please try again.");
     }
+    setLoading(false);
   };
 
-  /* ===============================
-     SUGGESTION CLICK
-  =============================== */
+  /**
+   * Handle suggestion click
+   */
   const handleSuggestionClick = async (city) => {
     const cityName = `${city.name}${city.state ? ", " + city.state : ""}, ${
       city.country
@@ -96,10 +75,22 @@ const SearchCity = ({ onResult }) => {
 
     setQuery(cityName);
     setShowSuggestions(false);
+    setLoading(true);
 
-    const data = await fetchWeatherByCity(city.name);
+    const data = await fetchWeatherByCity(city.name, getApiUnit());
     if (data && onResult) {
-      onResult(data); // 🔥 sends data to App → WeatherDisplay
+      onResult(data);
+      setQuery("");
+    }
+    setLoading(false);
+  };
+
+  /**
+   * Handle keyboard press (Enter to search)
+   */
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSearchClick();
     }
   };
 
@@ -111,14 +102,17 @@ const SearchCity = ({ onResult }) => {
           value={query}
           placeholder="Search for a city"
           onChange={handleChange}
+          onKeyPress={handleKeyPress}
           className="msn-search-input"
+          disabled={loading}
         />
         <button
           className="msn-search-btn"
           onClick={handleSearchClick}
           aria-label="Search city"
+          disabled={loading}
         >
-          🔍
+          {loading ? "..." : "🔍"}
         </button>
       </div>
 
